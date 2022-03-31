@@ -14,7 +14,7 @@ BLUE = (0, 0, 255)
 
 PI = math.pi
 
-bonkDoge = Image.open(r"/sprites/bonk.jpg")
+#bonkDoge = Image.open(r"/sprites/bonk.jpg")
 
 screenSize = (1600, 900)
 
