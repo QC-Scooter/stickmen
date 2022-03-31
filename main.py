@@ -1,8 +1,10 @@
 import pygame
 import math
+import os
 import random
 import sys
 import stickman_library
+from PIL import Image
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -12,6 +14,7 @@ BLUE = (0, 0, 255)
 
 PI = math.pi
 
+bonkDoge = Image.open(r"/sprites/bonk.jpg")
 
 screenSize = (1600, 900)
 
@@ -47,6 +50,7 @@ class screenBackground(object):
 
 red_stickman = StickmanFighter(RED)
 blue_stickman = StickmanFighter(BLUE)
+bonkDoge.show()
 
 while not done:
     for event in pygame.event.get():
