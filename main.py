@@ -3,7 +3,8 @@ import math
 import os
 import random
 import sys
-import stickman_library
+from libraries import stickman_library
+from libraries import sprites
 from PIL import Image
 
 BLACK = (0, 0, 0)
@@ -14,7 +15,7 @@ BLUE = (0, 0, 255)
 
 PI = math.pi
 
-#bonkDoge = Image.open(r"/sprites/bonk.jpg")
+bonkDoge = sprites.bonkDoge
 
 screenSize = (1600, 900)
 
