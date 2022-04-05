@@ -1,15 +1,11 @@
 import platform
 import os
 from PIL import Image
+import requests
 
 print("Sprites module loading...")
 
 
-#File path designator for stickmen folder
-if platform.system() == 'Darwin':
-	bonkDoge = Image.open("/Users/msstudent/Documents/GitHub/stickmen/sprites/bonk.jpg")
-
-if platform.system() == 'Windows':
-	bonkDoge = Image.open("%appdata%\stickmen\sprites\bonk.jpg")
+bonkDoge = Image.open(requests.get("https://dogemuchwow.com/wp-content/uploads/2020/12/bonk-it.jpg", stream=True).raw)
 
 print("Sprites module loaded")
