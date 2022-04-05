@@ -15,7 +15,6 @@ BLUE = (0, 0, 255)
 
 PI = math.pi
 
-bonkDoge = sprites.bonkDoge
 
 screenSize = (1600, 900)
 
@@ -33,15 +32,24 @@ clock = pygame.time.Clock()
 clockSpeed = 60
 
 
+stickman_height = 85
+stickman_width = 15
+
 class StickmanFighter(object):
-    def __init__(self, data):
-        stickman_color = data
-        print("Stickman initiated")
-        print(stickman_color)
+	def __init__(self, data):
+		self.stickman_color = data
+		if self.stickman_color == (255, 0, 0):
+			self.posX = 50
+			self.posY = 1660
+		elif self.stickman_color == (0, 0, 255):
+			self.posX = 250
+			self.posX = 1660
+		print("Stickman initiated")
+		print(self.stickman_color)
 
-#    def stickSpawn(self):
-#
-
+	def stickSpawn(self):
+		self.bodyHitbox = pygame.Rect(self.posX, self.posY, stickman_width, stickman_height)
+		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
 class screenBackground(object):
     def __init__(self, data):
@@ -51,12 +59,18 @@ class screenBackground(object):
 
 red_stickman = StickmanFighter(RED)
 blue_stickman = StickmanFighter(BLUE)
-bonkDoge.show()
+
+red_stickman.stickSpawn()
+blue_stickman.stickSpawn()
 
 while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-            pygame.quit()
-            sys.exit()
-            break
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			done = True
+			pygame.quit()
+			sys.exit()
+			break
+
+		bonkDoge = sprites.bonkDoge
+
+		pygame.display.flip()

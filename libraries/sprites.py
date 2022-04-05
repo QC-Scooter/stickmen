@@ -1,11 +1,9 @@
-import platform
 import os
-from PIL import Image
 import requests
+import pygame
 
 print("Sprites module loading...")
 
-
-bonkDoge = Image.open(requests.get("https://dogemuchwow.com/wp-content/uploads/2020/12/bonk-it.jpg", stream=True).raw)
+bonkDoge = pygame.image.load(requests.get("https://dogemuchwow.com/wp-content/uploads/2020/12/bonk-it.jpg", stream=True).raw)
 
 print("Sprites module loaded")
