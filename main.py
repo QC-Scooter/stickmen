@@ -38,30 +38,33 @@ stickman_width = 15
 class StickmanFighter(object):
 	def __init__(self, data):
 		self.stickman_color = data
-		if self.stickman_color == (255, 0, 0):
-			self.posX = 50
-			self.posY = 1660
-		elif self.stickman_color == (0, 0, 255):
-			self.posX = 250
-			self.posX = 1660
+		if self.stickman_color == "RED":
+			self.bodyPosX = 50
+			self.bodyPosY = 1660
+			self.stickman_color = RED
+		elif self.stickman_color == "BLUE":
+			self.bodyPosX = 250
+			self.bodyPosY = 1660
+			self.stickman_color = BLUE
 		print("Stickman initiated")
 		print(self.stickman_color)
 
-	def stickSpawn(self):
-		self.bodyHitbox = pygame.Rect(self.posX, self.posY, stickman_width, stickman_height)
+	def render(self):
+		self.bodyHitbox = pygame.Rect(self.bodyPosX, self.bodyPosY, stickman_width, stickman_height)
 		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
 class screenBackground(object):
-    def __init__(self, data):
-        backgroundImage = data
-        print("Background initiated")
+	def __init__(self, data):
+		self.backgroundImage = data
+		if self.backgroundImage == "white":
+			self.backgroundColor = (255, 255, 255)
+		print("Background initialized")
 
 
-red_stickman = StickmanFighter(RED)
-blue_stickman = StickmanFighter(BLUE)
+red_stickman = StickmanFighter("RED")
+blue_stickman = StickmanFighter("BLUE")
 
-red_stickman.stickSpawn()
-blue_stickman.stickSpawn()
+screenBG = screenBackground("white")
 
 while not done:
 	for event in pygame.event.get():
@@ -71,6 +74,10 @@ while not done:
 			sys.exit()
 			break
 
-		bonkDoge = sprites.bonkDoge
+		screen.fill(screenBG.backgroundColor)
+
+		red_stickman.render()
+		blue_stickman.render()
 
 		pygame.display.flip()
+		clock.tick(clockSpeed)
