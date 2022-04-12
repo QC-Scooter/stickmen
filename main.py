@@ -5,6 +5,7 @@ import random
 import sys
 from libraries import stickman_library
 from libraries import sprites
+from libraries import backgrounds
 from PIL import Image
 
 BLACK = (0, 0, 0)
@@ -57,14 +58,16 @@ class screenBackground(object):
 	def __init__(self, data):
 		self.backgroundImage = data
 		if self.backgroundImage == "white":
-			self.backgroundColor = (255, 255, 255)
+			backgrounds.white()
+		if self.backgroundImage == "forest":
+			backgrounds.forest()
 		print("Background initialized")
 
 
 red_stickman = StickmanFighter("RED")
 blue_stickman = StickmanFighter("BLUE")
 
-screenBG = screenBackground("white")
+screenBG = screenBackground("forest")
 
 while not done:
 	for event in pygame.event.get():
@@ -74,7 +77,6 @@ while not done:
 			sys.exit()
 			break
 
-		screen.fill(screenBG.backgroundColor)
 
 		red_stickman.render()
 		blue_stickman.render()
