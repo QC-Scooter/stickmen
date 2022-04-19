@@ -41,17 +41,19 @@ class StickmanFighter(object):
 		self.stickman_color = data
 		if self.stickman_color == "RED":
 			self.bodyPosX = 50
-			self.bodyPosY = 1660
+			self.bodyPosY = 1400
 			self.stickman_color = RED
 		elif self.stickman_color == "BLUE":
 			self.bodyPosX = 250
-			self.bodyPosY = 1660
+			self.bodyPosY = 1400
 			self.stickman_color = BLUE
 		print("Stickman initiated")
 		print(self.stickman_color)
 
 	def render(self):
-		self.bodyHitbox = pygame.Rect(self.bodyPosX, self.bodyPosY, stickman_width, stickman_height)
+		self.renderPosX = self.bodyPosX
+		self.renderPosY = self.bodyPosY - stickman_height
+		self.bodyHitbox = pygame.Rect(self.renderPosX, self.renderPosY, stickman_width, stickman_height)
 		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
 class screenBackground(object):
@@ -67,7 +69,7 @@ class screenBackground(object):
 red_stickman = StickmanFighter("RED")
 blue_stickman = StickmanFighter("BLUE")
 
-screenBG = screenBackground("forest")
+#screenBG = screenBackground("forest")
 
 while not done:
 	for event in pygame.event.get():
