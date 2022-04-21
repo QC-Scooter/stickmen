@@ -1,4 +1,4 @@
-print("Print background module loading...")
+print("Background module loading...")
 import pygame
 
 screenSize = (1600, 900)

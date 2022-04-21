@@ -22,7 +22,7 @@ screenSize = (1600, 900)
 pygame.init()
 
 
-screen = pygame.display.set_mode(screenSize, pygame.RESIZABLE)
+screen = pygame.display.set_mode(screenSize, pygame.NOFRAME)
 
 pygame.display.set_caption("Stickmen v0.1 ALPHA")
 
@@ -53,7 +53,7 @@ class StickmanFighter(object):
 	def render(self):
 		self.renderPosX = self.bodyPosX
 		self.renderPosY = self.bodyPosY - stickman_height
-		self.bodyHitbox = pygame.Rect(self.renderPosX, self.renderPosY, stickman_width, stickman_height)
+		self.bodyHitbox = (self.renderPosX, self.renderPosY, stickman_width, stickman_height)
 		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
 class screenBackground(object):
