@@ -5,14 +5,16 @@ import random
 import sys
 from libraries import stickman_library
 from libraries import sprites
-from libraries import backgrounds
+from backgrounds import backgrounds
+from sounds import sounds
 from PIL import Image
+import requests
 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
+BLACK = 0, 0, 0
+WHITE = 255, 255, 255
+GREEN = 0, 255, 0
+RED = 255, 0, 0
+BLUE = 0, 0, 255
 
 PI = math.pi
 
@@ -41,11 +43,11 @@ class StickmanFighter(object):
 		self.stickman_color = data
 		if self.stickman_color == "RED":
 			self.bodyPosX = 50
-			self.bodyPosY = 1400
+			self.bodyPosY = 700
 			self.stickman_color = RED
 		elif self.stickman_color == "BLUE":
-			self.bodyPosX = 250
-			self.bodyPosY = 1400
+			self.bodyPosX = 1535
+			self.bodyPosY = 700
 			self.stickman_color = BLUE
 		print("Stickman initiated")
 		print(self.stickman_color)
@@ -53,7 +55,7 @@ class StickmanFighter(object):
 	def render(self):
 		self.renderPosX = self.bodyPosX
 		self.renderPosY = self.bodyPosY - stickman_height
-		self.bodyHitbox = (self.renderPosX, self.renderPosY, stickman_width, stickman_height)
+		self.bodyHitbox = self.renderPosX, self.renderPosY, stickman_width, stickman_height
 		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
 class screenBackground(object):
@@ -69,7 +71,7 @@ class screenBackground(object):
 red_stickman = StickmanFighter("RED")
 blue_stickman = StickmanFighter("BLUE")
 
-#screenBG = screenBackground("forest")
+screenBG = screenBackground("forest")
 
 while not done:
 	for event in pygame.event.get():
@@ -78,7 +80,6 @@ while not done:
 			pygame.quit()
 			sys.exit()
 			break
-
 
 		red_stickman.render()
 		blue_stickman.render()
