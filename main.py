@@ -8,7 +8,6 @@ from libraries import sprites
 from backgrounds import backgrounds
 from sounds import sounds
 from PIL import Image
-import requests
 
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
@@ -32,8 +31,7 @@ done = False
 
 clock = pygame.time.Clock()
 
-clockSpeed = 60
-
+clockSpeed = 120
 
 stickman_height = 85
 stickman_width = 15
@@ -52,6 +50,12 @@ class StickmanFighter(object):
 		print("Stickman initiated")
 		print(self.stickman_color)
 
+	def move(self, direction):
+		if direction == 'left':
+			self.bodyPosX += -2
+		if direction == 'right':
+			self.bodyPosX += 2
+
 	def render(self):
 		self.renderPosX = self.bodyPosX
 		self.renderPosY = self.bodyPosY - stickman_height
@@ -63,15 +67,14 @@ class screenBackground(object):
 		self.backgroundImage = data
 		if self.backgroundImage == "white":
 			backgrounds.white()
-		if self.backgroundImage == "forest":
-			backgrounds.forest()
-		print("Background initialized")
+		if self.backgroundImage == "BigTree":
+			backgrounds.bigTree()
 
 
 red_stickman = StickmanFighter("RED")
 blue_stickman = StickmanFighter("BLUE")
 
-screenBG = screenBackground("forest")
+screenBG = screenBackground("white")
 
 while not done:
 	for event in pygame.event.get():
@@ -81,8 +84,23 @@ while not done:
 			sys.exit()
 			break
 
-		red_stickman.render()
-		blue_stickman.render()
+	screenBG = screenBackground("BigTree")
 
-		pygame.display.flip()
-		clock.tick(clockSpeed)
+	#Key Handling
+	key = pygame.key.get_pressed()
+
+	if key[pygame.K_a]:
+		red_stickman.move('left')
+	if key[pygame.K_d]:
+		red_stickman.move('right')
+
+	if key[pygame.K_LEFT]:
+		blue_stickman.move('left')
+	if key[pygame.K_RIGHT]:
+		blue_stickman.move('right')
+
+	red_stickman.render()
+	blue_stickman.render()
+
+	pygame.display.flip()
+	clock.tick(clockSpeed)
