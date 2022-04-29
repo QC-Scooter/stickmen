@@ -31,21 +31,23 @@ done = False
 
 clock = pygame.time.Clock()
 
-clockSpeed = 120
+clockSpeed = 20
 
 stickman_height = 85
 stickman_width = 15
+
+gravitySpeed = 3
 
 class StickmanFighter(object):
 	def __init__(self, data):
 		self.stickman_color = data
 		if self.stickman_color == "RED":
 			self.bodyPosX = 50
-			self.bodyPosY = 700
+			self.bodyPosY = 400
 			self.stickman_color = RED
 		elif self.stickman_color == "BLUE":
 			self.bodyPosX = 1535
-			self.bodyPosY = 700
+			self.bodyPosY = 400
 			self.stickman_color = BLUE
 		print("Stickman initiated")
 		print(self.stickman_color)
@@ -55,6 +57,18 @@ class StickmanFighter(object):
 			self.bodyPosX += -2
 		if direction == 'right':
 			self.bodyPosX += 2
+
+	def jump(self):
+		if self.bodyPosY == 700:
+		for i in range(3):
+			self.bodyPosY += -2
+
+			for self.accelerationY in range(-8, -3, 1):
+				self.bodyPosY += self.accelerationY
+
+	def gravity(self):
+		if self.bodyPosY < 700:
+			self.bodyPosY += gravitySpeed
 
 	def render(self):
 		self.renderPosX = self.bodyPosX
@@ -84,7 +98,7 @@ while not done:
 			sys.exit()
 			break
 
-	screenBG = screenBackground("BigTree")
+	screenBG = screenBackground("white")
 
 	#Key Handling
 	key = pygame.key.get_pressed()
@@ -93,11 +107,18 @@ while not done:
 		red_stickman.move('left')
 	if key[pygame.K_d]:
 		red_stickman.move('right')
+	if key[pygame.K_w]:
+		red_stickman.jump()
 
 	if key[pygame.K_LEFT]:
 		blue_stickman.move('left')
 	if key[pygame.K_RIGHT]:
 		blue_stickman.move('right')
+	if key[pygame.K_UP]:
+		blue_stickman.jump()
+
+	red_stickman.gravity()
+	blue_stickman.gravity()
 
 	red_stickman.render()
 	blue_stickman.render()
