@@ -52,17 +52,22 @@ class StickmanFighter(object):
 		print("Stickman initiated")
 		print(self.stickman_color)
 
-	def move(self, direction):
+	def platformCheck(self):
+		if self.bodyPosY == 700 or self.is_on_platform == True:
+			self.isJumping = False
+
+	def moveHorizontal(self, direction):
 		if direction == 'left':
 			self.bodyPosX += -2
 		if direction == 'right':
 			self.bodyPosX += 2
 
-	def jump(self):
-		if self.bodyPosY == 700:
-		for i in range(3):
-			self.bodyPosY += -2
+	def moveVertical(self):
+		self.bodyPosY += self.accelerationY
 
+	def jump(self):
+		if self.isJumping == True:
+			self.isJumping = False
 			for self.accelerationY in range(-8, -3, 1):
 				self.bodyPosY += self.accelerationY
 
@@ -73,6 +78,11 @@ class StickmanFighter(object):
 	def render(self):
 		self.renderPosX = self.bodyPosX
 		self.renderPosY = self.bodyPosY - stickman_height
+
+		self.feetPosX = self.bodyPosX
+		self.feetPosY = self.bodyPosY - 5
+
+		self.feetHitbox = pygame.Rect(self.feetPosX, self.feetPosY, stickman_width, 5)
 		self.bodyHitbox = self.renderPosX, self.renderPosY, stickman_width, stickman_height
 		pygame.draw.rect(screen, self.stickman_color, self.bodyHitbox)
 
@@ -100,13 +110,12 @@ while not done:
 
 	screenBG = screenBackground("white")
 
-	#Key Handling
 	key = pygame.key.get_pressed()
 
 	if key[pygame.K_a]:
-		red_stickman.move('left')
+		red_stickman.moveHorizontal('left')
 	if key[pygame.K_d]:
-		red_stickman.move('right')
+		red_stickman.moveHorizontal('right')
 	if key[pygame.K_w]:
 		red_stickman.jump()
 
