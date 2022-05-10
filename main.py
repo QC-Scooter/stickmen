@@ -110,6 +110,9 @@ while not done:
 
 	screenBG = screenBackground("white")
 
+	blue_stickman.platformCheck()
+	red_stickman.platformCheck()
+
 	key = pygame.key.get_pressed()
 
 	if key[pygame.K_a]:
