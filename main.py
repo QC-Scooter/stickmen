@@ -7,7 +7,6 @@ from libraries import stickman_library
 from libraries import sprites
 from backgrounds import backgrounds
 from sounds import sounds
-from PIL import Image
 
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
@@ -31,7 +30,7 @@ done = False
 
 clock = pygame.time.Clock()
 
-clockSpeed = 20
+clockSpeed = 180
 
 stickman_height = 85
 stickman_width = 15
@@ -53,7 +52,7 @@ class StickmanFighter(object):
 		print(self.stickman_color)
 
 	def platformCheck(self):
-		if self.bodyPosY == 700 or self.is_on_platform == True:
+		if self.bodyPosY == 700:
 			self.isJumping = False
 
 	def moveHorizontal(self, direction):
@@ -66,14 +65,17 @@ class StickmanFighter(object):
 		self.bodyPosY += self.accelerationY
 
 	def jump(self):
-		if self.isJumping == True:
-			self.isJumping = False
-			for self.accelerationY in range(-8, -3, 1):
+		if self.isJumping == False:
+			for self.accelerationY in range(-5, -3, 1):
 				self.bodyPosY += self.accelerationY
 
 	def gravity(self):
 		if self.bodyPosY < 700:
 			self.bodyPosY += gravitySpeed
+
+	def speedFall(self):
+		if self.bodyPosY < 700:
+			self.bodyPosY += 3
 
 	def render(self):
 		self.renderPosX = self.bodyPosX
@@ -108,7 +110,7 @@ while not done:
 			sys.exit()
 			break
 
-	screenBG = screenBackground("white")
+	screenBG = screenBackground("BigTree")
 
 	blue_stickman.platformCheck()
 	red_stickman.platformCheck()
@@ -121,13 +123,17 @@ while not done:
 		red_stickman.moveHorizontal('right')
 	if key[pygame.K_w]:
 		red_stickman.jump()
+	if key[pygame.K_s]:
+		red_stickman.speedFall()
 
 	if key[pygame.K_LEFT]:
-		blue_stickman.move('left')
+		blue_stickman.moveHorizontal('left')
 	if key[pygame.K_RIGHT]:
-		blue_stickman.move('right')
+		blue_stickman.moveHorizontal('right')
 	if key[pygame.K_UP]:
 		blue_stickman.jump()
+	if key[pygame.K_DOWN]:
+		blue_stickman.speedFall()
 
 	red_stickman.gravity()
 	blue_stickman.gravity()
